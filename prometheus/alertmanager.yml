@@ -1,0 +1,8 @@
+route:
+    receiver: tg_bot
+  
+  receivers:
+  - name: tg_bot
+    webhook_configs:
+    - send_resolved: true
+      url: 'http://telegram_bot:9087/alert/CHAT_ID'

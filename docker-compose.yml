@@ -1,0 +1,42 @@
+version: "3.8"
+services:
+  nearup:
+    image: nearprotocol/nearup:0.4.2
+    container_name: nearup
+    networks:
+        - near_node_network
+    command: run betanet --account-id YOUR_BETANET_ACCOUNT_ID
+    volumes:
+      - ./near_data:/root/.near
+  prometheus:
+    image: prom/prometheus:v2.20.1
+    container_name: prometheus
+    networks:
+        - near_node_network
+    # ports:
+    #     - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+
+  grafana:
+    image: grafana/grafana:7.0.3
+    networks:
+        - near_node_network
+    volumes:
+      - ./grafana:/var/lib/grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+
+#   alertmanager:
+#     image: prom/alertmanager
+#     volumes:
+#       - ./prometheus/etc/alertmanager.yml:/etc/alertmanager/alertmanager.yml
+#     depends_on:
+#       - prometheus
+
+networks:
+    near_node_network:
