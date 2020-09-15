@@ -26,9 +26,11 @@ services:
     ports:
         - "9090:9090"
     volumes:
-      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus/etc:/etc/prometheus
+      - ./prometheus/var:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
 
   grafana:
     image: grafana/grafana:7.0.3
@@ -44,7 +46,7 @@ services:
   alertmanager:
     image: prom/alertmanager
     volumes:
-      - ./prometheus/alertmanager.yml:/etc/alertmanager/alertmanager.yml
+      - ./prometheus/etc/alertmanager.yml:/etc/alertmanager/alertmanager.yml
     ports:
       - "9093:9093"
     depends_on:
