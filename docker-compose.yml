@@ -54,6 +54,8 @@ services:
 
   telegram_bot:
     build: ./telegram_bot
+    volumes:
+      - ./prometheus/etc/telegram_bot.yml:/config.yml
     depends_on:
       - prometheus
       - alertmanager
