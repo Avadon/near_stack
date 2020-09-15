@@ -5,7 +5,8 @@ services:
     container_name: nearup
     networks:
         - near_node_network
-    command: run betanet --account-id YOUR_BETANET_ACCOUNT_ID
+    command: run betanet
+    # command: run betanet --account-id YOUR_BETANET_ACCOUNT_ID
     volumes:
       - ./near_data:/root/.near
 
@@ -44,6 +45,8 @@ services:
     image: prom/alertmanager
     volumes:
       - ./prometheus/alertmanager.yml:/etc/alertmanager/alertmanager.yml
+    ports:
+      - "9093:9093"
     depends_on:
       - prometheus
 
