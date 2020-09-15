@@ -5,6 +5,8 @@ services:
     container_name: nearup
     networks:
         - near_node_network
+    ports:
+      - "30303:3030"
     command: run betanet
     # command: run betanet --account-id YOUR_BETANET_ACCOUNT_ID
     volumes:
