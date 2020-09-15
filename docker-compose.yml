@@ -8,13 +8,22 @@ services:
     command: run betanet --account-id YOUR_BETANET_ACCOUNT_ID
     volumes:
       - ./near_data:/root/.near
+
+  # near_exporter:
+  #   build: ./near_exporter
+  #   container_name: near_exporter
+  #   networks:
+  #     - near_node_network
+  #   depends_on:
+  #     - prometheus
+
   prometheus:
     image: prom/prometheus:v2.20.1
     container_name: prometheus
     networks:
         - near_node_network
-    # ports:
-    #     - "9090:9090"
+    ports:
+        - "9090:9090"
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     command:
@@ -31,12 +40,12 @@ services:
     depends_on:
       - prometheus
 
-#   alertmanager:
-#     image: prom/alertmanager
-#     volumes:
-#       - ./prometheus/etc/alertmanager.yml:/etc/alertmanager/alertmanager.yml
-#     depends_on:
-#       - prometheus
+  alertmanager:
+    image: prom/alertmanager
+    volumes:
+      - ./prometheus/etc/alertmanager.yml:/etc/alertmanager/alertmanager.yml
+    depends_on:
+      - prometheus
 
 networks:
     near_node_network:

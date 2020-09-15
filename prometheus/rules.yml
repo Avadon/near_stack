@@ -1,0 +1,23 @@
+groups:
+- name: NEAR
+    rules:
+    - alert: nearNodeIsNotAValidator
+    expr: near_is_validator != 1
+    for: 1m
+    labels:
+        severity: Error
+        service: nearup
+    annotations:
+        summary: NEAR node is NOT a validator
+
+- name: nearNodeIsDown
+  rules:
+  - alert: NodeDown
+    expr: up{job='near_node'} == 0
+    for: 1m
+    labels:
+      severity: Error
+      service: nearup
+    annotations:
+      summary: "NEAR node is DOWN"
+      description: "NodeExporterDown"
