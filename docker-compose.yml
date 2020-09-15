@@ -52,5 +52,11 @@ services:
     depends_on:
       - prometheus
 
+  telegram_bot:
+    build: ./telegram_bot
+    depends_on:
+      - prometheus
+      - alertmanager
+
 networks:
     near_node_network:
