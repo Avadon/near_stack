@@ -21,3 +21,14 @@ groups:
     annotations:
       summary: "NEAR node is DOWN"
       description: "NodeExporterDown"
+
+- name: nearNodeNoPeerConnections
+  rules:
+  - alert: nearNodeNoPeerConnections
+    expr: near_peer_connections_total < 1
+    for: 1m
+    labels:
+      severity: Error
+      service: nearup
+    annotations:
+      summary: "NEAR No peer connections"
