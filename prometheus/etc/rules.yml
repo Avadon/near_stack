@@ -1,7 +1,7 @@
 groups:
 - name: NEAR
-    rules:
-    - alert: nearNodeIsNotAValidator
+  rules:
+  - alert: nearNodeIsNotAValidator
     expr: near_is_validator != 1
     for: 1m
     labels:
