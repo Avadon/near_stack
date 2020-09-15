@@ -43,7 +43,7 @@ services:
   alertmanager:
     image: prom/alertmanager
     volumes:
-      - ./prometheus/etc/alertmanager.yml:/etc/alertmanager/alertmanager.yml
+      - ./prometheus/alertmanager.yml:/etc/alertmanager/alertmanager.yml
     depends_on:
       - prometheus
 
